@@ -1,0 +1,21 @@
+{
+  "name": "Playlist",
+  "description": "A playlist of some songs that Greg likes to demo the first version of the Exponent Audio API.",
+  "slug": "playlist",
+  "privacy": "public",
+  "sdkVersion": "UNVERSIONED",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "primaryColor": "#cccccc",
+  "icon": "./icon.png",
+  "loading": {
+    "icon": "./icon.png",
+    "hideExponentText": false
+  },
+  "packagerOpts": {
+    "assetExts": ["ttf", "mp3", "png"]
+  },
+  "ios": {
+    "supportsTablet": true
+  }
+}

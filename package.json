@@ -1,12 +1,12 @@
 {
   "name": "playlist",
   "version": "0.0.0",
-  "description": "Hello Exponent!",
+  "description": "A playlist of some songs that Greg likes to demo the Expo AV API.",
   "author": null,
   "private": true,
   "main": "main.js",
   "dependencies": {
-    "expo": "15.0.0-rc.1",
+    "expo": "16.0.0",
     "@expo/vector-icons": "~4.0.0",
     "react": "~15.4.0",
     "react-native": "git+https://github.com/exponentjs/react-native#sdk-15"

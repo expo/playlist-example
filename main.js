@@ -133,7 +133,7 @@ class App extends React.Component {
     this.playbackInstance = null;
     this.state = {
       showVideo: false,
-      playbackInstanceName: '',
+      playbackInstanceName: LOADING_STRING,
       loopingType: LOOPING_TYPE_ALL,
       muted: false,
       playbackInstancePosition: null,
@@ -168,7 +168,6 @@ class App extends React.Component {
       });
       this.setState({ fontLoaded: true });
     })();
-    this._updateScreenForLoading(true);
   }
 
   async _loadNewPlaybackInstance(playing) {
@@ -248,9 +247,6 @@ class App extends React.Component {
         this._updatePlaybackInstanceForIndex(true);
       }
     } else {
-      if (!this.state.isLoading) {
-        this._updateScreenForLoading(true);
-      }
       if (status.error) {
         console.log(`FATAL PLAYER ERROR: ${status.error}`);
       }

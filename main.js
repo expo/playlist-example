@@ -158,7 +158,7 @@ class App extends React.Component {
     Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-      playsInSilentLockedModeIOS: true,
+      playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
       interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
     });
@@ -270,17 +270,17 @@ class App extends React.Component {
       DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width;
     if (widestHeight > VIDEO_CONTAINER_HEIGHT) {
       this.setState({
-        videoWidth: VIDEO_CONTAINER_HEIGHT *
-          event.naturalSize.width /
-          event.naturalSize.height,
+        videoWidth:
+          VIDEO_CONTAINER_HEIGHT *
+            event.naturalSize.width /
+            event.naturalSize.height,
         videoHeight: VIDEO_CONTAINER_HEIGHT,
       });
     } else {
       this.setState({
         videoWidth: DEVICE_WIDTH,
-        videoHeight: DEVICE_WIDTH *
-          event.naturalSize.height /
-          event.naturalSize.width,
+        videoHeight:
+          DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width,
       });
     }
   };
@@ -430,7 +430,9 @@ class App extends React.Component {
       this.state.playbackInstancePosition != null &&
       this.state.playbackInstanceDuration != null
     ) {
-      return `${this._getMMSSFromMillis(this.state.playbackInstancePosition)} / ${this._getMMSSFromMillis(this.state.playbackInstanceDuration)}`;
+      return `${this._getMMSSFromMillis(
+        this.state.playbackInstancePosition
+      )} / ${this._getMMSSFromMillis(this.state.playbackInstanceDuration)}`;
     }
     return '';
   }

@@ -6,10 +6,8 @@
   "private": true,
   "main": "main.js",
   "dependencies": {
-    "@expo/ex-navigation": "~3.0.0",
-    "@expo/samples": "~1.0.3",
-    "expo": "18.0.1",
+    "expo": "19.0.0-rc.1",
     "react": "16.0.0-alpha.12",
-    "react-native": "https://github.com/expo/react-native#sdk-18"
+    "react-native": "https://github.com/expo/react-native#sdk-19"
   }
 }

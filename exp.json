@@ -3,7 +3,7 @@
   "description": "A playlist of some songs that Greg likes to demo the Expo AV API.",
   "slug": "playlist",
   "privacy": "public",
-  "sdkVersion": "UNVERSIONED",
+  "sdkVersion": "19.0.0",
   "version": "2.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",

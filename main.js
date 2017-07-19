@@ -12,7 +12,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import Expo, { Asset, Audio, Font, Video } from 'expo';
+import Expo, { Asset, Audio, AV, Font, Video } from 'expo';
 
 class Icon {
   constructor(module, width, height) {
@@ -185,6 +185,8 @@ class App extends React.Component {
       volume: this.state.volume,
       isMuted: this.state.muted,
       isLooping: this.state.loopingType === LOOPING_TYPE_ONE,
+      // // UNCOMMENT THIS TO TEST THE OLD androidImplementation:
+      androidImplementation: 'MediaPlayer',
     };
 
     if (PLAYLIST[this.index].isVideo) {

@@ -184,9 +184,9 @@ export default class App extends React.Component {
       shouldCorrectPitch: this.state.shouldCorrectPitch,
       volume: this.state.volume,
       isMuted: this.state.muted,
-      isLooping: this.state.loopingType === LOOPING_TYPE_ONE,
+      isLooping: this.state.loopingType === LOOPING_TYPE_ONE
       // // UNCOMMENT THIS TO TEST THE OLD androidImplementation:
-      androidImplementation: 'MediaPlayer'
+      // androidImplementation: 'MediaPlayer',
     };
 
     if (PLAYLIST[this.index].isVideo) {

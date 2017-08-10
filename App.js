@@ -173,7 +173,7 @@ export default class App extends React.Component {
   async _loadNewPlaybackInstance(playing) {
     if (this.playbackInstance != null) {
       await this.playbackInstance.unloadAsync();
-      this.playbackInstance.setCallback(null);
+      this.playbackInstance.setOnPlaybackStatusUpdate(null);
       this.playbackInstance = null;
     }
 
@@ -190,7 +190,7 @@ export default class App extends React.Component {
     };
 
     if (PLAYLIST[this.index].isVideo) {
-      this._video.setCallback(this._callback);
+      this._video.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
       await this._video.loadAsync(source, initialStatus);
       this.playbackInstance = this._video;
       const status = await this._video.getStatusAsync();
@@ -198,7 +198,7 @@ export default class App extends React.Component {
       const { sound, status } = await Audio.Sound.create(
         source,
         initialStatus,
-        this._callback
+        this._onPlaybackStatusUpdate
       );
       this.playbackInstance = sound;
     }
@@ -230,7 +230,7 @@ export default class App extends React.Component {
     }
   }
 
-  _callback = status => {
+  _onPlaybackStatusUpdate = status => {
     if (status.isLoaded) {
       this.setState({
         playbackInstancePosition: status.positionMillis,
@@ -480,7 +480,7 @@ export default class App extends React.Component {
                 }
               ]}
               resizeMode={Video.RESIZE_MODE_CONTAIN}
-              callback={this._callback}
+              onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
               onLoadStart={this._onLoadStart}
               onLoad={this._onLoad}
               onError={this._onError}

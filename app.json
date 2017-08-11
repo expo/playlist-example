@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Playlist",
+    "description": "A playlist of some songs that Greg likes to demo the Expo AV API.",
+    "slug": "playlist",
+    "privacy": "public",
+    "sdkVersion": "UNVERSIONED",
+    "version": "3.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/images/icon.png",
+    "loading": {
+      "icon": "./assets/images/icon.png",
+      "hideExponentText": false
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf", "png"]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}

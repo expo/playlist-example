@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
+  View,
 } from 'react-native';
 import { Asset, Audio, Font, Video } from 'expo';
 
@@ -56,7 +56,7 @@ const PLAYLIST = [
     'Podington Bear - “Rubber Robot”',
     'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3',
     false
-  )
+  ),
 ];
 
 const ICON_PLAY_BUTTON = new Icon(
@@ -150,7 +150,7 @@ export default class App extends React.Component {
       videoHeight: VIDEO_CONTAINER_HEIGHT,
       poster: false,
       useNativeControls: false,
-      fullscreen: false
+      fullscreen: false,
     };
   }
 
@@ -160,11 +160,11 @@ export default class App extends React.Component {
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
       playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
     });
     (async () => {
       await Font.loadAsync({
-        'cutive-mono-regular': require('./assets/fonts/CutiveMono-Regular.ttf')
+        'cutive-mono-regular': require('./assets/fonts/CutiveMono-Regular.ttf'),
       });
       this.setState({ fontLoaded: true });
     })();
@@ -184,7 +184,7 @@ export default class App extends React.Component {
       shouldCorrectPitch: this.state.shouldCorrectPitch,
       volume: this.state.volume,
       isMuted: this.state.muted,
-      isLooping: this.state.loopingType === LOOPING_TYPE_ONE
+      isLooping: this.state.loopingType === LOOPING_TYPE_ONE,
       // // UNCOMMENT THIS TO TEST THE OLD androidImplementation:
       // androidImplementation: 'MediaPlayer',
     };
@@ -219,13 +219,13 @@ export default class App extends React.Component {
         playbackInstanceName: LOADING_STRING,
         playbackInstanceDuration: null,
         playbackInstancePosition: null,
-        isLoading: true
+        isLoading: true,
       });
     } else {
       this.setState({
         playbackInstanceName: PLAYLIST[this.index].name,
         showVideo: PLAYLIST[this.index].isVideo,
-        isLoading: false
+        isLoading: false,
       });
     }
   }
@@ -242,7 +242,7 @@ export default class App extends React.Component {
         muted: status.isMuted,
         volume: status.volume,
         loopingType: status.isLooping ? LOOPING_TYPE_ONE : LOOPING_TYPE_ALL,
-        shouldCorrectPitch: status.shouldCorrectPitch
+        shouldCorrectPitch: status.shouldCorrectPitch,
       });
       if (status.didJustFinish && !status.isLooping) {
         this._advanceIndex(true);
@@ -276,13 +276,13 @@ export default class App extends React.Component {
           VIDEO_CONTAINER_HEIGHT *
           event.naturalSize.width /
           event.naturalSize.height,
-        videoHeight: VIDEO_CONTAINER_HEIGHT
+        videoHeight: VIDEO_CONTAINER_HEIGHT,
       });
     } else {
       this.setState({
         videoWidth: DEVICE_WIDTH,
         videoHeight:
-          DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width
+          DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width,
       });
     }
   };
@@ -303,7 +303,7 @@ export default class App extends React.Component {
 
     this.setState({
       videoWidth: DEVICE_WIDTH,
-      videoHeight: VIDEO_CONTAINER_HEIGHT
+      videoHeight: VIDEO_CONTAINER_HEIGHT,
     });
 
     this._loadNewPlaybackInstance(playing);
@@ -461,9 +461,7 @@ export default class App extends React.Component {
       : <View style={styles.container}>
           <View />
           <View style={styles.nameContainer}>
-            <Text
-              style={[styles.text, { ...Font.style('cutive-mono-regular') }]}
-            >
+            <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
               {this.state.playbackInstanceName}
             </Text>
           </View>
@@ -476,8 +474,8 @@ export default class App extends React.Component {
                 {
                   opacity: this.state.showVideo ? 1.0 : 0.0,
                   width: this.state.videoWidth,
-                  height: this.state.videoHeight
-                }
+                  height: this.state.videoHeight,
+                },
               ]}
               resizeMode={Video.RESIZE_MODE_CONTAIN}
               onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
@@ -493,10 +491,9 @@ export default class App extends React.Component {
             style={[
               styles.playbackContainer,
               {
-                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0
-              }
-            ]}
-          >
+                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
+              },
+            ]}>
             <Slider
               style={styles.playbackSlider}
               trackImage={ICON_TRACK_1.module}
@@ -511,18 +508,16 @@ export default class App extends React.Component {
                 style={[
                   styles.text,
                   styles.buffering,
-                  { ...Font.style('cutive-mono-regular') }
-                ]}
-              >
+                  { fontFamily: 'cutive-mono-regular' },
+                ]}>
                 {this.state.isBuffering ? BUFFERING_STRING : ''}
               </Text>
               <Text
                 style={[
                   styles.text,
                   styles.timestamp,
-                  { ...Font.style('cutive-mono-regular') }
-                ]}
-              >
+                  { fontFamily: 'cutive-mono-regular' },
+                ]}>
                 {this._getTimestamp()}
               </Text>
             </View>
@@ -532,24 +527,21 @@ export default class App extends React.Component {
               styles.buttonsContainerBase,
               styles.buttonsContainerTopRow,
               {
-                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0
-              }
-            ]}
-          >
+                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
+              },
+            ]}>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
               onPress={this._onBackPressed}
-              disabled={this.state.isLoading}
-            >
+              disabled={this.state.isLoading}>
               <Image style={styles.button} source={ICON_BACK_BUTTON.module} />
             </TouchableHighlight>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
               onPress={this._onPlayPausePressed}
-              disabled={this.state.isLoading}
-            >
+              disabled={this.state.isLoading}>
               <Image
                 style={styles.button}
                 source={
@@ -563,16 +555,14 @@ export default class App extends React.Component {
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
               onPress={this._onStopPressed}
-              disabled={this.state.isLoading}
-            >
+              disabled={this.state.isLoading}>
               <Image style={styles.button} source={ICON_STOP_BUTTON.module} />
             </TouchableHighlight>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
               onPress={this._onForwardPressed}
-              disabled={this.state.isLoading}
-            >
+              disabled={this.state.isLoading}>
               <Image
                 style={styles.button}
                 source={ICON_FORWARD_BUTTON.module}
@@ -582,15 +572,13 @@ export default class App extends React.Component {
           <View
             style={[
               styles.buttonsContainerBase,
-              styles.buttonsContainerMiddleRow
-            ]}
-          >
+              styles.buttonsContainerMiddleRow,
+            ]}>
             <View style={styles.volumeContainer}>
               <TouchableHighlight
                 underlayColor={BACKGROUND_COLOR}
                 style={styles.wrapper}
-                onPress={this._onMutePressed}
-              >
+                onPress={this._onMutePressed}>
                 <Image
                   style={styles.button}
                   source={
@@ -611,8 +599,7 @@ export default class App extends React.Component {
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
-              onPress={this._onLoopPressed}
-            >
+              onPress={this._onLoopPressed}>
               <Image
                 style={styles.button}
                 source={LOOPING_TYPE_ICONS[this.state.loopingType].module}
@@ -622,22 +609,16 @@ export default class App extends React.Component {
           <View
             style={[
               styles.buttonsContainerBase,
-              styles.buttonsContainerBottomRow
-            ]}
-          >
+              styles.buttonsContainerBottomRow,
+            ]}>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
               onPress={() =>
-                this._trySetRate(1.0, this.state.shouldCorrectPitch)}
-            >
+                this._trySetRate(1.0, this.state.shouldCorrectPitch)}>
               <View style={styles.button}>
                 <Text
-                  style={[
-                    styles.text,
-                    { ...Font.style('cutive-mono-regular') }
-                  ]}
-                >
+                  style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
                   Rate:
                 </Text>
               </View>
@@ -652,15 +633,10 @@ export default class App extends React.Component {
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
-              onPress={this._onPitchCorrectionPressed}
-            >
+              onPress={this._onPitchCorrectionPressed}>
               <View style={styles.button}>
                 <Text
-                  style={[
-                    styles.text,
-                    { ...Font.style('cutive-mono-regular') }
-                  ]}
-                >
+                  style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
                   PC: {this.state.shouldCorrectPitch ? 'yes' : 'no'}
                 </Text>
               </View>
@@ -672,22 +648,19 @@ export default class App extends React.Component {
                 <View
                   style={[
                     styles.buttonsContainerBase,
-                    styles.buttonsContainerTextRow
-                  ]}
-                >
+                    styles.buttonsContainerTextRow,
+                  ]}>
                   <View />
                   <TouchableHighlight
                     underlayColor={BACKGROUND_COLOR}
                     style={styles.wrapper}
-                    onPress={this._onPosterPressed}
-                  >
+                    onPress={this._onPosterPressed}>
                     <View style={styles.button}>
                       <Text
                         style={[
                           styles.text,
-                          { ...Font.style('cutive-mono-regular') }
-                        ]}
-                      >
+                          { fontFamily: 'cutive-mono-regular' },
+                        ]}>
                         Poster: {this.state.poster ? 'yes' : 'no'}
                       </Text>
                     </View>
@@ -696,15 +669,13 @@ export default class App extends React.Component {
                   <TouchableHighlight
                     underlayColor={BACKGROUND_COLOR}
                     style={styles.wrapper}
-                    onPress={this._onFullscreenPressed}
-                  >
+                    onPress={this._onFullscreenPressed}>
                     <View style={styles.button}>
                       <Text
                         style={[
                           styles.text,
-                          { ...Font.style('cutive-mono-regular') }
-                        ]}
-                      >
+                          { fontFamily: 'cutive-mono-regular' },
+                        ]}>
                         Fullscreen
                       </Text>
                     </View>
@@ -715,22 +686,19 @@ export default class App extends React.Component {
                 <View
                   style={[
                     styles.buttonsContainerBase,
-                    styles.buttonsContainerTextRow
-                  ]}
-                >
+                    styles.buttonsContainerTextRow,
+                  ]}>
                   <View />
                   <TouchableHighlight
                     underlayColor={BACKGROUND_COLOR}
                     style={styles.wrapper}
-                    onPress={this._onUseNativeControlsPressed}
-                  >
+                    onPress={this._onUseNativeControlsPressed}>
                     <View style={styles.button}>
                       <Text
                         style={[
                           styles.text,
-                          { ...Font.style('cutive-mono-regular') }
-                        ]}
-                      >
+                          { fontFamily: 'cutive-mono-regular' },
+                        ]}>
                         Native Controls:{' '}
                         {this.state.useNativeControls ? 'yes' : 'no'}
                       </Text>
@@ -747,7 +715,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   emptyContainer: {
     alignSelf: 'stretch',
-    backgroundColor: BACKGROUND_COLOR
+    backgroundColor: BACKGROUND_COLOR,
   },
   container: {
     flex: 1,
@@ -755,20 +723,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'stretch',
-    backgroundColor: BACKGROUND_COLOR
+    backgroundColor: BACKGROUND_COLOR,
   },
   wrapper: {},
   nameContainer: {
-    height: FONT_SIZE
+    height: FONT_SIZE,
   },
   space: {
-    height: FONT_SIZE
+    height: FONT_SIZE,
   },
   videoContainer: {
-    height: VIDEO_CONTAINER_HEIGHT
+    height: VIDEO_CONTAINER_HEIGHT,
   },
   video: {
-    maxWidth: DEVICE_WIDTH
+    maxWidth: DEVICE_WIDTH,
   },
   playbackContainer: {
     flex: 1,
@@ -777,10 +745,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
     minHeight: ICON_THUMB_1.height * 2.0,
-    maxHeight: ICON_THUMB_1.height * 2.0
+    maxHeight: ICON_THUMB_1.height * 2.0,
   },
   playbackSlider: {
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
   timestampRow: {
     flex: 1,
@@ -788,38 +756,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     alignSelf: 'stretch',
-    minHeight: FONT_SIZE
+    minHeight: FONT_SIZE,
   },
   text: {
     fontSize: FONT_SIZE,
-    minHeight: FONT_SIZE
+    minHeight: FONT_SIZE,
   },
   buffering: {
     textAlign: 'left',
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   timestamp: {
     textAlign: 'right',
-    paddingRight: 20
+    paddingRight: 20,
   },
   button: {
-    backgroundColor: BACKGROUND_COLOR
+    backgroundColor: BACKGROUND_COLOR,
   },
   buttonsContainerBase: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   buttonsContainerTopRow: {
     maxHeight: ICON_PLAY_BUTTON.height,
     minWidth: DEVICE_WIDTH / 2.0,
-    maxWidth: DEVICE_WIDTH / 2.0
+    maxWidth: DEVICE_WIDTH / 2.0,
   },
   buttonsContainerMiddleRow: {
     maxHeight: ICON_MUTED_BUTTON.height,
     alignSelf: 'stretch',
-    paddingRight: 20
+    paddingRight: 20,
   },
   volumeContainer: {
     flex: 1,
@@ -827,19 +795,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     minWidth: DEVICE_WIDTH / 2.0,
-    maxWidth: DEVICE_WIDTH / 2.0
+    maxWidth: DEVICE_WIDTH / 2.0,
   },
   volumeSlider: {
-    width: DEVICE_WIDTH / 2.0 - ICON_MUTED_BUTTON.width
+    width: DEVICE_WIDTH / 2.0 - ICON_MUTED_BUTTON.width,
   },
   buttonsContainerBottomRow: {
     maxHeight: ICON_THUMB_1.height,
     alignSelf: 'stretch',
     paddingRight: 20,
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   rateSlider: {
-    width: DEVICE_WIDTH / 2.0
+    width: DEVICE_WIDTH / 2.0,
   },
   buttonsContainerTextRow: {
     maxHeight: FONT_SIZE,
@@ -847,6 +815,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingLeft: 20,
     minWidth: DEVICE_WIDTH,
-    maxWidth: DEVICE_WIDTH
-  }
+    maxWidth: DEVICE_WIDTH,
+  },
 });

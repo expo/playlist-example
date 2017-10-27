@@ -59,53 +59,17 @@ const PLAYLIST = [
   ),
 ];
 
-const ICON_PLAY_BUTTON = new Icon(
-  require('./assets/images/play_button.png'),
-  34,
-  51
-);
-const ICON_PAUSE_BUTTON = new Icon(
-  require('./assets/images/pause_button.png'),
-  34,
-  51
-);
-const ICON_STOP_BUTTON = new Icon(
-  require('./assets/images/stop_button.png'),
-  22,
-  22
-);
-const ICON_FORWARD_BUTTON = new Icon(
-  require('./assets/images/forward_button.png'),
-  33,
-  25
-);
-const ICON_BACK_BUTTON = new Icon(
-  require('./assets/images/back_button.png'),
-  33,
-  25
-);
+const ICON_PLAY_BUTTON = new Icon(require('./assets/images/play_button.png'), 34, 51);
+const ICON_PAUSE_BUTTON = new Icon(require('./assets/images/pause_button.png'), 34, 51);
+const ICON_STOP_BUTTON = new Icon(require('./assets/images/stop_button.png'), 22, 22);
+const ICON_FORWARD_BUTTON = new Icon(require('./assets/images/forward_button.png'), 33, 25);
+const ICON_BACK_BUTTON = new Icon(require('./assets/images/back_button.png'), 33, 25);
 
-const ICON_LOOP_ALL_BUTTON = new Icon(
-  require('./assets/images/loop_all_button.png'),
-  77,
-  35
-);
-const ICON_LOOP_ONE_BUTTON = new Icon(
-  require('./assets/images/loop_one_button.png'),
-  77,
-  35
-);
+const ICON_LOOP_ALL_BUTTON = new Icon(require('./assets/images/loop_all_button.png'), 77, 35);
+const ICON_LOOP_ONE_BUTTON = new Icon(require('./assets/images/loop_one_button.png'), 77, 35);
 
-const ICON_MUTED_BUTTON = new Icon(
-  require('./assets/images/muted_button.png'),
-  67,
-  58
-);
-const ICON_UNMUTED_BUTTON = new Icon(
-  require('./assets/images/unmuted_button.png'),
-  67,
-  58
-);
+const ICON_MUTED_BUTTON = new Icon(require('./assets/images/muted_button.png'), 67, 58);
+const ICON_UNMUTED_BUTTON = new Icon(require('./assets/images/unmuted_button.png'), 67, 58);
 
 const ICON_TRACK_1 = new Icon(require('./assets/images/track_1.png'), 166, 5);
 const ICON_THUMB_1 = new Icon(require('./assets/images/thumb_1.png'), 18, 19);
@@ -268,34 +232,26 @@ export default class App extends React.Component {
   };
 
   _onReadyForDisplay = event => {
-    const widestHeight =
-      DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width;
+    const widestHeight = DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width;
     if (widestHeight > VIDEO_CONTAINER_HEIGHT) {
       this.setState({
-        videoWidth:
-          VIDEO_CONTAINER_HEIGHT *
-          event.naturalSize.width /
-          event.naturalSize.height,
+        videoWidth: VIDEO_CONTAINER_HEIGHT * event.naturalSize.width / event.naturalSize.height,
         videoHeight: VIDEO_CONTAINER_HEIGHT,
       });
     } else {
       this.setState({
         videoWidth: DEVICE_WIDTH,
-        videoHeight:
-          DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width,
+        videoHeight: DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width,
       });
     }
   };
 
   _onFullscreenUpdate = event => {
-    console.log(
-      `FULLSCREEN UPDATE : ${JSON.stringify(event.fullscreenUpdate)}`
-    );
+    console.log(`FULLSCREEN UPDATE : ${JSON.stringify(event.fullscreenUpdate)}`);
   };
 
   _advanceIndex(forward) {
-    this.index =
-      (this.index + (forward ? 1 : PLAYLIST.length - 1)) % PLAYLIST.length;
+    this.index = (this.index + (forward ? 1 : PLAYLIST.length - 1)) % PLAYLIST.length;
   }
 
   async _updatePlaybackInstanceForIndex(playing) {
@@ -347,9 +303,7 @@ export default class App extends React.Component {
 
   _onLoopPressed = () => {
     if (this.playbackInstance != null) {
-      this.playbackInstance.setIsLoopingAsync(
-        this.state.loopingType !== LOOPING_TYPE_ONE
-      );
+      this.playbackInstance.setIsLoopingAsync(this.state.loopingType !== LOOPING_TYPE_ONE);
     }
   };
 
@@ -403,10 +357,7 @@ export default class App extends React.Component {
       this.state.playbackInstancePosition != null &&
       this.state.playbackInstanceDuration != null
     ) {
-      return (
-        this.state.playbackInstancePosition /
-        this.state.playbackInstanceDuration
-      );
+      return this.state.playbackInstancePosition / this.state.playbackInstanceDuration;
     }
     return 0;
   }
@@ -456,259 +407,206 @@ export default class App extends React.Component {
   };
 
   render() {
-    return !this.state.fontLoaded
-      ? <View style={styles.emptyContainer} />
-      : <View style={styles.container}>
-          <View />
-          <View style={styles.nameContainer}>
-            <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
-              {this.state.playbackInstanceName}
+    return !this.state.fontLoaded ? (
+      <View style={styles.emptyContainer} />
+    ) : (
+      <View style={styles.container}>
+        <View />
+        <View style={styles.nameContainer}>
+          <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
+            {this.state.playbackInstanceName}
+          </Text>
+        </View>
+        <View style={styles.space} />
+        <View style={styles.videoContainer}>
+          <Video
+            ref={this._mountVideo}
+            style={[
+              styles.video,
+              {
+                opacity: this.state.showVideo ? 1.0 : 0.0,
+                width: this.state.videoWidth,
+                height: this.state.videoHeight,
+              },
+            ]}
+            resizeMode={Video.RESIZE_MODE_CONTAIN}
+            onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
+            onLoadStart={this._onLoadStart}
+            onLoad={this._onLoad}
+            onError={this._onError}
+            onFullscreenUpdate={this._onFullscreenUpdate}
+            onReadyForDisplay={this._onReadyForDisplay}
+            useNativeControls={this.state.useNativeControls}
+          />
+        </View>
+        <View
+          style={[
+            styles.playbackContainer,
+            {
+              opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
+            },
+          ]}>
+          <Slider
+            style={styles.playbackSlider}
+            trackImage={ICON_TRACK_1.module}
+            thumbImage={ICON_THUMB_1.module}
+            value={this._getSeekSliderPosition()}
+            onValueChange={this._onSeekSliderValueChange}
+            onSlidingComplete={this._onSeekSliderSlidingComplete}
+            disabled={this.state.isLoading}
+          />
+          <View style={styles.timestampRow}>
+            <Text style={[styles.text, styles.buffering, { fontFamily: 'cutive-mono-regular' }]}>
+              {this.state.isBuffering ? BUFFERING_STRING : ''}
+            </Text>
+            <Text style={[styles.text, styles.timestamp, { fontFamily: 'cutive-mono-regular' }]}>
+              {this._getTimestamp()}
             </Text>
           </View>
-          <View style={styles.space} />
-          <View style={styles.videoContainer}>
-            <Video
-              ref={this._mountVideo}
-              style={[
-                styles.video,
-                {
-                  opacity: this.state.showVideo ? 1.0 : 0.0,
-                  width: this.state.videoWidth,
-                  height: this.state.videoHeight,
-                },
-              ]}
-              resizeMode={Video.RESIZE_MODE_CONTAIN}
-              onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
-              onLoadStart={this._onLoadStart}
-              onLoad={this._onLoad}
-              onError={this._onError}
-              onFullscreenUpdate={this._onFullscreenUpdate}
-              onReadyForDisplay={this._onReadyForDisplay}
-              useNativeControls={this.state.useNativeControls}
+        </View>
+        <View
+          style={[
+            styles.buttonsContainerBase,
+            styles.buttonsContainerTopRow,
+            {
+              opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
+            },
+          ]}>
+          <TouchableHighlight
+            underlayColor={BACKGROUND_COLOR}
+            style={styles.wrapper}
+            onPress={this._onBackPressed}
+            disabled={this.state.isLoading}>
+            <Image style={styles.button} source={ICON_BACK_BUTTON.module} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor={BACKGROUND_COLOR}
+            style={styles.wrapper}
+            onPress={this._onPlayPausePressed}
+            disabled={this.state.isLoading}>
+            <Image
+              style={styles.button}
+              source={this.state.isPlaying ? ICON_PAUSE_BUTTON.module : ICON_PLAY_BUTTON.module}
+            />
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor={BACKGROUND_COLOR}
+            style={styles.wrapper}
+            onPress={this._onStopPressed}
+            disabled={this.state.isLoading}>
+            <Image style={styles.button} source={ICON_STOP_BUTTON.module} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor={BACKGROUND_COLOR}
+            style={styles.wrapper}
+            onPress={this._onForwardPressed}
+            disabled={this.state.isLoading}>
+            <Image style={styles.button} source={ICON_FORWARD_BUTTON.module} />
+          </TouchableHighlight>
+        </View>
+        <View style={[styles.buttonsContainerBase, styles.buttonsContainerMiddleRow]}>
+          <View style={styles.volumeContainer}>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onMutePressed}>
+              <Image
+                style={styles.button}
+                source={this.state.muted ? ICON_MUTED_BUTTON.module : ICON_UNMUTED_BUTTON.module}
+              />
+            </TouchableHighlight>
+            <Slider
+              style={styles.volumeSlider}
+              trackImage={ICON_TRACK_1.module}
+              thumbImage={ICON_THUMB_2.module}
+              value={1}
+              onValueChange={this._onVolumeSliderValueChange}
             />
           </View>
-          <View
-            style={[
-              styles.playbackContainer,
-              {
-                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
-              },
-            ]}>
-            <Slider
-              style={styles.playbackSlider}
-              trackImage={ICON_TRACK_1.module}
-              thumbImage={ICON_THUMB_1.module}
-              value={this._getSeekSliderPosition()}
-              onValueChange={this._onSeekSliderValueChange}
-              onSlidingComplete={this._onSeekSliderSlidingComplete}
-              disabled={this.state.isLoading}
+          <TouchableHighlight
+            underlayColor={BACKGROUND_COLOR}
+            style={styles.wrapper}
+            onPress={this._onLoopPressed}>
+            <Image
+              style={styles.button}
+              source={LOOPING_TYPE_ICONS[this.state.loopingType].module}
             />
-            <View style={styles.timestampRow}>
-              <Text
-                style={[
-                  styles.text,
-                  styles.buffering,
-                  { fontFamily: 'cutive-mono-regular' },
-                ]}>
-                {this.state.isBuffering ? BUFFERING_STRING : ''}
-              </Text>
-              <Text
-                style={[
-                  styles.text,
-                  styles.timestamp,
-                  { fontFamily: 'cutive-mono-regular' },
-                ]}>
-                {this._getTimestamp()}
+          </TouchableHighlight>
+        </View>
+        <View style={[styles.buttonsContainerBase, styles.buttonsContainerBottomRow]}>
+          <TouchableHighlight
+            underlayColor={BACKGROUND_COLOR}
+            style={styles.wrapper}
+            onPress={() => this._trySetRate(1.0, this.state.shouldCorrectPitch)}>
+            <View style={styles.button}>
+              <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>Rate:</Text>
+            </View>
+          </TouchableHighlight>
+          <Slider
+            style={styles.rateSlider}
+            trackImage={ICON_TRACK_1.module}
+            thumbImage={ICON_THUMB_1.module}
+            value={this.state.rate / RATE_SCALE}
+            onSlidingComplete={this._onRateSliderSlidingComplete}
+          />
+          <TouchableHighlight
+            underlayColor={BACKGROUND_COLOR}
+            style={styles.wrapper}
+            onPress={this._onPitchCorrectionPressed}>
+            <View style={styles.button}>
+              <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
+                PC: {this.state.shouldCorrectPitch ? 'yes' : 'no'}
               </Text>
             </View>
-          </View>
-          <View
-            style={[
-              styles.buttonsContainerBase,
-              styles.buttonsContainerTopRow,
-              {
-                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
-              },
-            ]}>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onBackPressed}
-              disabled={this.state.isLoading}>
-              <Image style={styles.button} source={ICON_BACK_BUTTON.module} />
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onPlayPausePressed}
-              disabled={this.state.isLoading}>
-              <Image
-                style={styles.button}
-                source={
-                  this.state.isPlaying
-                    ? ICON_PAUSE_BUTTON.module
-                    : ICON_PLAY_BUTTON.module
-                }
-              />
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onStopPressed}
-              disabled={this.state.isLoading}>
-              <Image style={styles.button} source={ICON_STOP_BUTTON.module} />
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onForwardPressed}
-              disabled={this.state.isLoading}>
-              <Image
-                style={styles.button}
-                source={ICON_FORWARD_BUTTON.module}
-              />
-            </TouchableHighlight>
-          </View>
-          <View
-            style={[
-              styles.buttonsContainerBase,
-              styles.buttonsContainerMiddleRow,
-            ]}>
-            <View style={styles.volumeContainer}>
+          </TouchableHighlight>
+        </View>
+        <View />
+        {this.state.showVideo ? (
+          <View>
+            <View style={[styles.buttonsContainerBase, styles.buttonsContainerTextRow]}>
+              <View />
               <TouchableHighlight
                 underlayColor={BACKGROUND_COLOR}
                 style={styles.wrapper}
-                onPress={this._onMutePressed}>
-                <Image
-                  style={styles.button}
-                  source={
-                    this.state.muted
-                      ? ICON_MUTED_BUTTON.module
-                      : ICON_UNMUTED_BUTTON.module
-                  }
-                />
+                onPress={this._onPosterPressed}>
+                <View style={styles.button}>
+                  <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
+                    Poster: {this.state.poster ? 'yes' : 'no'}
+                  </Text>
+                </View>
               </TouchableHighlight>
-              <Slider
-                style={styles.volumeSlider}
-                trackImage={ICON_TRACK_1.module}
-                thumbImage={ICON_THUMB_2.module}
-                value={1}
-                onValueChange={this._onVolumeSliderValueChange}
-              />
+              <View />
+              <TouchableHighlight
+                underlayColor={BACKGROUND_COLOR}
+                style={styles.wrapper}
+                onPress={this._onFullscreenPressed}>
+                <View style={styles.button}>
+                  <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
+                    Fullscreen
+                  </Text>
+                </View>
+              </TouchableHighlight>
+              <View />
             </View>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onLoopPressed}>
-              <Image
-                style={styles.button}
-                source={LOOPING_TYPE_ICONS[this.state.loopingType].module}
-              />
-            </TouchableHighlight>
-          </View>
-          <View
-            style={[
-              styles.buttonsContainerBase,
-              styles.buttonsContainerBottomRow,
-            ]}>
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={() =>
-                this._trySetRate(1.0, this.state.shouldCorrectPitch)}>
-              <View style={styles.button}>
-                <Text
-                  style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
-                  Rate:
-                </Text>
-              </View>
-            </TouchableHighlight>
-            <Slider
-              style={styles.rateSlider}
-              trackImage={ICON_TRACK_1.module}
-              thumbImage={ICON_THUMB_1.module}
-              value={this.state.rate / RATE_SCALE}
-              onSlidingComplete={this._onRateSliderSlidingComplete}
-            />
-            <TouchableHighlight
-              underlayColor={BACKGROUND_COLOR}
-              style={styles.wrapper}
-              onPress={this._onPitchCorrectionPressed}>
-              <View style={styles.button}>
-                <Text
-                  style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
-                  PC: {this.state.shouldCorrectPitch ? 'yes' : 'no'}
-                </Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          <View />
-          {this.state.showVideo
-            ? <View>
-                <View
-                  style={[
-                    styles.buttonsContainerBase,
-                    styles.buttonsContainerTextRow,
-                  ]}>
-                  <View />
-                  <TouchableHighlight
-                    underlayColor={BACKGROUND_COLOR}
-                    style={styles.wrapper}
-                    onPress={this._onPosterPressed}>
-                    <View style={styles.button}>
-                      <Text
-                        style={[
-                          styles.text,
-                          { fontFamily: 'cutive-mono-regular' },
-                        ]}>
-                        Poster: {this.state.poster ? 'yes' : 'no'}
-                      </Text>
-                    </View>
-                  </TouchableHighlight>
-                  <View />
-                  <TouchableHighlight
-                    underlayColor={BACKGROUND_COLOR}
-                    style={styles.wrapper}
-                    onPress={this._onFullscreenPressed}>
-                    <View style={styles.button}>
-                      <Text
-                        style={[
-                          styles.text,
-                          { fontFamily: 'cutive-mono-regular' },
-                        ]}>
-                        Fullscreen
-                      </Text>
-                    </View>
-                  </TouchableHighlight>
-                  <View />
+            <View style={styles.space} />
+            <View style={[styles.buttonsContainerBase, styles.buttonsContainerTextRow]}>
+              <View />
+              <TouchableHighlight
+                underlayColor={BACKGROUND_COLOR}
+                style={styles.wrapper}
+                onPress={this._onUseNativeControlsPressed}>
+                <View style={styles.button}>
+                  <Text style={[styles.text, { fontFamily: 'cutive-mono-regular' }]}>
+                    Native Controls: {this.state.useNativeControls ? 'yes' : 'no'}
+                  </Text>
                 </View>
-                <View style={styles.space} />
-                <View
-                  style={[
-                    styles.buttonsContainerBase,
-                    styles.buttonsContainerTextRow,
-                  ]}>
-                  <View />
-                  <TouchableHighlight
-                    underlayColor={BACKGROUND_COLOR}
-                    style={styles.wrapper}
-                    onPress={this._onUseNativeControlsPressed}>
-                    <View style={styles.button}>
-                      <Text
-                        style={[
-                          styles.text,
-                          { fontFamily: 'cutive-mono-regular' },
-                        ]}>
-                        Native Controls:{' '}
-                        {this.state.useNativeControls ? 'yes' : 'no'}
-                      </Text>
-                    </View>
-                  </TouchableHighlight>
-                  <View />
-                </View>
-              </View>
-            : null}
-        </View>;
+              </TouchableHighlight>
+              <View />
+            </View>
+          </View>
+        ) : null}
+      </View>
+    );
   }
 }
 

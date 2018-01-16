@@ -400,7 +400,7 @@ export default class App extends React.Component {
 
   _onFullscreenPressed = () => {
     try {
-      this._video.presentIOSFullscreenPlayer();
+      this._video.presentFullscreenPlayer();
     } catch (error) {
       console.log(error.toString());
     }

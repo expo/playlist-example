@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native';
 import { Asset, Audio, Font, Video } from 'expo';
+import { MaterialIcons } from '@expo/vector-icons';
 
 class Icon {
   constructor(module, width, height) {
@@ -58,6 +59,9 @@ const PLAYLIST = [
     false
   ),
 ];
+
+const ICON_THROUGH_EARPIECE = 'speaker-phone';
+const ICON_THROUGH_SPEAKER = 'speaker';
 
 const ICON_PLAY_BUTTON = new Icon(require('./assets/images/play_button.png'), 34, 51);
 const ICON_PAUSE_BUTTON = new Icon(require('./assets/images/pause_button.png'), 34, 51);
@@ -115,6 +119,7 @@ export default class App extends React.Component {
       poster: false,
       useNativeControls: false,
       fullscreen: false,
+      throughEarpiece: false,
     };
   }
 
@@ -125,9 +130,11 @@ export default class App extends React.Component {
       playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
       interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      playThroughEarpieceAndroid: false,
     });
     (async () => {
       await Font.loadAsync({
+        ...MaterialIcons.font,
         'cutive-mono-regular': require('./assets/fonts/CutiveMono-Regular.ttf'),
       });
       this.setState({ fontLoaded: true });
@@ -406,6 +413,23 @@ export default class App extends React.Component {
     }
   };
 
+  _onSpeakerPressed = () => {
+    this.setState(
+      state => {
+        return { throughEarpiece: !state.throughEarpiece };
+      },
+      ({ throughEarpiece }) =>
+        Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+          playThroughEarpieceAndroid: throughEarpiece,
+        })
+    );
+  };
+
   render() {
     return !this.state.fontLoaded ? (
       <View style={styles.emptyContainer} />
@@ -558,6 +582,13 @@ export default class App extends React.Component {
                 PC: {this.state.shouldCorrectPitch ? 'yes' : 'no'}
               </Text>
             </View>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={this._onSpeakerPressed} underlayColor={BACKGROUND_COLOR}>
+            <MaterialIcons
+              name={this.state.throughEarpiece ? ICON_THROUGH_EARPIECE : ICON_THROUGH_SPEAKER}
+              size={32}
+              color="black"
+            />
           </TouchableHighlight>
         </View>
         <View />

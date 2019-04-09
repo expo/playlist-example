@@ -144,7 +144,7 @@ export default class App extends React.Component {
   async _loadNewPlaybackInstance(playing) {
     if (this.playbackInstance != null) {
       await this.playbackInstance.unloadAsync();
-      this.playbackInstance.setOnPlaybackStatusUpdate(null);
+      // this.playbackInstance.setOnPlaybackStatusUpdate(null);
       this.playbackInstance = null;
     }
 
@@ -161,12 +161,13 @@ export default class App extends React.Component {
     };
 
     if (PLAYLIST[this.index].isVideo) {
-      this._video.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
+      console.log(this._onPlaybackStatusUpdate);
       await this._video.loadAsync(source, initialStatus);
+      // this._video.onPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
       this.playbackInstance = this._video;
       const status = await this._video.getStatusAsync();
     } else {
-      const { sound, status } = await Audio.Sound.create(
+      const { sound, status } = await Audio.Sound.createAsync(
         source,
         initialStatus,
         this._onPlaybackStatusUpdate

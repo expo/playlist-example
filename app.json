@@ -5,7 +5,7 @@
     "scheme": "playlist-example",
     "slug": "playlist-example",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "34.0.0",
     "version": "3.0.0",
     "platforms": ["android", "ios"],
     "githubUrl": "https://github.com/expo/playlist-example",
@@ -18,7 +18,7 @@
       "resizeMode": "contain"
     },
     "packagerOpts": {
-      "assetExts": [ "png", "ttf"]
+      "assetExts": ["png", "ttf"]
     },
     "ios": {
       "supportsTablet": true

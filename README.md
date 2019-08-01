@@ -1,6 +1,5 @@
-# playlist
+# playlist example
 
-An example app using the `Exponent.Audio` API. See
-[main.js](https://github.com/exponent/playlist/blob/master/main.js) for
-the good stuff, and/or try it out at
-https://getexponent.com/@exponent/playlist
+An example app using the [Expo.Audio](https://docs.expo.io/versions/latest/sdk/audio/) & [Expo.Video](https://docs.expo.io/versions/latest/sdk/video/) API.
+
+See [App.js](https://github.com/expo/playlist-example/blob/master/App.js) for the good stuff.

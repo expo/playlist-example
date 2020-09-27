@@ -47,6 +47,11 @@ const PLAYLIST = [
     true
   ),
   new PlaylistItem(
+      "HLS STREAM",
+      "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
+      false
+  ),
+  new PlaylistItem(
     "Mildred Bailey – “All Of Me”",
     "https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3",
     false
@@ -60,7 +65,7 @@ const PLAYLIST = [
     "Podington Bear - “Rubber Robot”",
     "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3",
     false
-  )
+  ),
 ];
 
 const ICON_THROUGH_EARPIECE = "speaker-phone";

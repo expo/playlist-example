@@ -12,7 +12,7 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "expo": "^34.0.3",
+    "expo": "^39.0.2",
     "expo-asset": "^6.0.0",
     "expo-av": "^6.0.0",
     "expo-font": "^6.0.1",

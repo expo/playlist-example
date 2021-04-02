@@ -1,25 +1,26 @@
 {
-  "name": "playlist-example",
-  "version": "3.0.0",
-  "description": "a playlist of some songs that Greg likes to demo the Expo AV API.",
-  "author": "expo",
-  "keywords": [
-    "expo",
-    "react-native",
-    "audio",
-    "playlist"
-  ],
-  "private": true,
-  "main": "node_modules/expo/AppEntry.js",
-  "dependencies": {
-    "expo": "^34.0.3",
-    "expo-asset": "^6.0.0",
-    "expo-av": "^6.0.0",
-    "expo-font": "^6.0.1",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz"
-  },
-  "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
-  }
+    "name": "playlist-example",
+    "version": "3.0.0",
+    "description": "a playlist of some songs that Greg likes to demo the Expo AV API.",
+    "author": "expo",
+    "keywords": [
+        "expo",
+        "react-native",
+        "audio",
+        "playlist"
+    ],
+    "private": true,
+    "main": "node_modules/expo/AppEntry.js",
+    "dependencies": {
+        "expo-cli": "^4.3.2",
+        "expo": "^37.0.0",
+        "expo-asset": "^8.1.0",
+        "expo-av": "^8.1.0",
+        "expo-font": "^8.1.1",
+        "react": "16.11.0",
+        "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz"
+    },
+    "devDependencies": {
+        "babel-preset-expo": "^5.0.0"
+    }
 }

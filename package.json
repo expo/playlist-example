@@ -12,15 +12,15 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "@react-native-community/slider": "4.1.12",
-    "expo": "^44.0.0",
-    "expo-asset": "~8.4.6",
-    "expo-av": "~10.2.0",
-    "expo-font": "~10.0.4",
-    "react": "17.0.1",
-    "react-native": "0.64.3"
+    "@react-native-community/slider": "4.2.1",
+    "expo": "^45.0.0",
+    "expo-asset": "~8.5.0",
+    "expo-av": "~11.2.3",
+    "expo-font": "~10.1.0",
+    "react": "17.0.2",
+    "react-native": "0.68.2"
   },
   "devDependencies": {
-    "babel-preset-expo": "9.0.2"
+    "@babel/core": "^7.12.9"
   }
 }

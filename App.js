@@ -12,7 +12,13 @@ import {
   View
 } from "react-native";
 import { Asset } from "expo-asset";
-import { Audio, Video } from "expo-av";
+import {
+  Audio,
+  InterruptionModeAndroid,
+  InterruptionModeIOS,
+  ResizeMode,
+  Video
+} from "expo-av";
 import * as Font from "expo-font";
 import Slider from "@react-native-community/slider";
 
@@ -166,10 +172,10 @@ export default class App extends React.Component {
     Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       staysActiveInBackground: false,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      interruptionModeIOS: InterruptionModeIOS.DoNotMix,
       playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
       playThroughEarpieceAndroid: false
     });
     (async () => {
@@ -474,10 +480,10 @@ export default class App extends React.Component {
       ({ throughEarpiece }) =>
         Audio.setAudioModeAsync({
           allowsRecordingIOS: false,
-          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+          interruptionModeIOS: InterruptionModeIOS.DoNotMix,
           playsInSilentModeIOS: true,
           shouldDuckAndroid: true,
-          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+          interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
           playThroughEarpieceAndroid: throughEarpiece
         })
     );
@@ -506,7 +512,7 @@ export default class App extends React.Component {
                 height: this.state.videoHeight
               }
             ]}
-            resizeMode={Video.RESIZE_MODE_CONTAIN}
+            resizeMode={ResizeMode.CONTAIN}
             onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
             onLoadStart={this._onLoadStart}
             onLoad={this._onLoad}

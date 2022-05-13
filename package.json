@@ -12,12 +12,12 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "expo": "^40.0.0",
-    "expo-asset": "~8.2.1",
-    "expo-av": "~8.7.0",
-    "expo-font": "~8.4.0",
+    "expo": "^41.0.0",
+    "expo-asset": "~8.3.1",
+    "expo-av": "~9.1.2",
+    "expo-font": "~9.1.0",
     "react": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz"
   },
   "devDependencies": {
     "babel-preset-expo": "8.3.0"

@@ -6,7 +6,6 @@ import React from "react";
 import {
   Dimensions,
   Image,
-  Slider,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -15,6 +14,7 @@ import {
 import { Asset } from "expo-asset";
 import { Audio, Video } from "expo-av";
 import * as Font from "expo-font";
+import Slider from "@react-native-community/slider";
 
 import { MaterialIcons } from "@expo/vector-icons";
 

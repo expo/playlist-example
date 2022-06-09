@@ -477,14 +477,14 @@ export default class App extends React.Component {
       state => {
         return { throughEarpiece: !state.throughEarpiece };
       },
-      ({ throughEarpiece }) =>
+      () =>
         Audio.setAudioModeAsync({
           allowsRecordingIOS: false,
           interruptionModeIOS: InterruptionModeIOS.DoNotMix,
           playsInSilentModeIOS: true,
           shouldDuckAndroid: true,
           interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
-          playThroughEarpieceAndroid: throughEarpiece
+          playThroughEarpieceAndroid: this.state.throughEarpiece
         })
     );
   };

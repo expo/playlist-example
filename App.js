@@ -6,15 +6,21 @@ import React from "react";
 import {
   Dimensions,
   Image,
-  Slider,
   StyleSheet,
   Text,
   TouchableHighlight,
   View
 } from "react-native";
 import { Asset } from "expo-asset";
-import { Audio, Video } from "expo-av";
+import {
+  Audio,
+  InterruptionModeAndroid,
+  InterruptionModeIOS,
+  ResizeMode,
+  Video
+} from "expo-av";
 import * as Font from "expo-font";
+import Slider from "@react-native-community/slider";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -166,10 +172,10 @@ export default class App extends React.Component {
     Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       staysActiveInBackground: false,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      interruptionModeIOS: InterruptionModeIOS.DoNotMix,
       playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
       playThroughEarpieceAndroid: false
     });
     (async () => {
@@ -201,7 +207,6 @@ export default class App extends React.Component {
     };
 
     if (PLAYLIST[this.index].isVideo) {
-      console.log(this._onPlaybackStatusUpdate);
       await this._video.loadAsync(source, initialStatus);
       // this._video.onPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
       this.playbackInstance = this._video;
@@ -471,14 +476,14 @@ export default class App extends React.Component {
       state => {
         return { throughEarpiece: !state.throughEarpiece };
       },
-      ({ throughEarpiece }) =>
+      () =>
         Audio.setAudioModeAsync({
           allowsRecordingIOS: false,
-          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+          interruptionModeIOS: InterruptionModeIOS.DoNotMix,
           playsInSilentModeIOS: true,
           shouldDuckAndroid: true,
-          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-          playThroughEarpieceAndroid: throughEarpiece
+          interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
+          playThroughEarpieceAndroid: this.state.throughEarpiece
         })
     );
   };
@@ -506,7 +511,7 @@ export default class App extends React.Component {
                 height: this.state.videoHeight
               }
             ]}
-            resizeMode={Video.RESIZE_MODE_CONTAIN}
+            resizeMode={ResizeMode.CONTAIN}
             onPlaybackStatusUpdate={this._onPlaybackStatusUpdate}
             onLoadStart={this._onLoadStart}
             onLoad={this._onLoad}

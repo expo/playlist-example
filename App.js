@@ -207,7 +207,6 @@ export default class App extends React.Component {
     };
 
     if (PLAYLIST[this.index].isVideo) {
-      console.log(this._onPlaybackStatusUpdate);
       await this._video.loadAsync(source, initialStatus);
       // this._video.onPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
       this.playbackInstance = this._video;

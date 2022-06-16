@@ -3,7 +3,7 @@
     "name": "playlist-example",
     "description": "a playlist of some songs that Greg likes to demo the Expo AV API.",
     "scheme": "playlist-example",
-    "slug": "playlist-example",
+    "slug": "playlist",
     "privacy": "public",
     "version": "3.0.0",
     "platforms": ["android", "ios"],

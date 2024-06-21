@@ -11,6 +11,7 @@
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "backgroundColor": "#ffffff",
       "image": "./assets/images/icon.png",
@@ -21,6 +22,16 @@
     },
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "plugins": [
+      "expo-asset",
+      "expo-font"
+    ]
   }
 }

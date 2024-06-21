@@ -861,7 +861,7 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH / 2.0 - ICON_MUTED_BUTTON.width
   },
   buttonsContainerBottomRow: {
-    maxHeight: ICON_THUMB_1.height,
+    maxHeight: 32,
     alignSelf: "stretch",
     paddingRight: 20,
     paddingLeft: 20
